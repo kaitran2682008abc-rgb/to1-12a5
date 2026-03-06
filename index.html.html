@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tổ 1 – 12A5 | Kỷ Niệm Thanh Xuân</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Nunito:wght@300;400;600;700&display=swap');
+
+  :root {
+    --indigo: #4f46e5;
+    --violet: #7c3aed;
+    --sky: #0ea5e9;
+    --rose: #f43f5e;
+    --amber: #f59e0b;
+    --bg: #f8f7ff;
+    --card: #ffffff;
+    --text: #1e1b4b;
+    --muted: #6b7280;
+    --border: rgba(79,70,229,0.15);
+    --grad1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --grad2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    --grad3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  /* ─── SCROLLBAR ─── */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: #e0e7ff; }
+  ::-webkit-scrollbar-thumb { background: var(--indigo); border-radius: 3px; }
+
+
+  /* ─── CANVAS SAO BĂNG ─── */
+  #starCanvas {
+    position: fixed; top:0; left:0;
+    width:100%; height:100%;
+    pointer-events: none; z-index: 0;
+  }
+  section, nav, footer { position: relative; z-index: 1; }
+  /* ─── NAV ─── */
+  nav {
+    position: fixed; top:0; width:100%; z-index:1000;
+    padding: 16px 40px;
+    display: flex; align-items: center; justify-content: space-between;
+    background: rgba(248,247,255,0.85);
+    backdrop-filter: blur(18px);
+    border-bottom: 1px solid var(--border);
+    transition: all .3s;
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem; font-weight: 700;
+    background: var(--grad1); -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+  }
+  .nav-links { display:flex; gap:28px; list-style:none; }
+  .nav-links a {
+    text-decoration:none; color:var(--muted); font-weight:600; font-size:.9rem;
+    transition:.2s; position:relative;
+  }
+  .nav-links a::after {
+    content:''; position:absolute; bottom:-4px; left:0; width:0; height:2px;
+    background:var(--grad1); border-radius:2px; transition:.3s;
+  }
+  .nav-links a:hover { color:var(--indigo); }
+  .nav-links a:hover::after { width:100%; }
+
+  /* ─── HERO ─── */
+  #hero {
+    min-height: 100vh;
+    display: flex; flex-direction:column; align-items:center; justify-content:center;
+    position: relative; overflow:hidden;
+    background: linear-gradient(160deg, #1e1b4b 0%, #312e81 30%, #4c1d95 60%, #1e1b4b 100%);
+  }
+  .hero-bg {
+    position:absolute; inset:0;
+    background: radial-gradient(ellipse at 20% 50%, rgba(139,92,246,.35) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 20%, rgba(79,70,229,.3) 0%, transparent 50%),
+                radial-gradient(ellipse at 60% 80%, rgba(236,72,153,.2) 0%, transparent 50%);
+    animation: bgPulse 8s ease-in-out infinite alternate;
+  }
+  @keyframes bgPulse { from{opacity:.8} to{opacity:1} }
+
+  .hero-stars {
+    position:absolute; inset:0; overflow:hidden; pointer-events:none;
+  }
+  .star {
+    position:absolute; background:#fff; border-radius:50%;
+    animation: twinkle var(--d, 3s) ease-in-out infinite alternate;
+  }
+  @keyframes twinkle { from{opacity:.1; transform:scale(.8)} to{opacity:.9; transform:scale(1.2)} }
+
+  .hero-photo-wrap {
+    position:relative; z-index:2;
+    width: min(420px, 85vw); height: min(280px, 56vw);
+    border-radius: 24px;
+    overflow:hidden;
+    border: 3px solid rgba(255,255,255,.25);
+    box-shadow: 0 30px 80px rgba(0,0,0,.5), 0 0 0 1px rgba(255,255,255,.1);
+    cursor:pointer;
+    transition: transform .4s, box-shadow .4s;
+  }
+  .hero-photo-wrap:hover { transform:scale(1.02); box-shadow:0 40px 100px rgba(0,0,0,.6); }
+  .hero-photo-wrap img { width:100%; height:100%; object-fit:cover; display:block; }
+  .hero-photo-placeholder {
+    width:100%; height:100%;
+    background: linear-gradient(135deg,#312e81,#4c1d95);
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    gap:12px; color:rgba(255,255,255,.6); font-size:.9rem;
+  }
+  .hero-photo-placeholder .icon { font-size:3rem; }
+  .hero-change-hint {
+    position:absolute; inset:0; background:rgba(0,0,0,.5);
+    display:flex; align-items:center; justify-content:center;
+    color:#fff; font-weight:600; font-size:.9rem;
+    opacity:0; transition:.3s; border-radius:22px;
+  }
+  .hero-photo-wrap:hover .hero-change-hint { opacity:1; }
+
+  .hero-content {
+    position:relative; z-index:2;
+    text-align:center; padding:32px 24px 0;
+    max-width:720px;
+  }
+  .hero-tag {
+    display:inline-block; padding:6px 18px;
+    border:1px solid rgba(167,139,250,.5); border-radius:100px;
+    color:rgba(196,181,253,1); font-size:.8rem; font-weight:700;
+    letter-spacing:.12em; text-transform:uppercase; margin-bottom:20px;
+    background:rgba(109,40,217,.2);
+  }
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    color:#fff; line-height:1.2; margin-bottom:20px;
+    min-height: 80px;
+  }
+  .hero-title .cursor {
+    display:inline-block; width:3px; height:1em;
+    background:#a78bfa; margin-left:4px;
+    animation:blink .7s step-end infinite;
+    vertical-align:middle;
+  }
+  @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+
+  .hero-quote {
+    color:rgba(196,181,253,.85); font-size:1rem;
+    font-style:italic; line-height:1.7; margin-bottom:36px;
+    padding:0 20px;
+  }
+  .hero-btn {
+    display:inline-flex; align-items:center; gap:10px;
+    padding:14px 36px; border-radius:100px;
+    background: var(--grad1); color:#fff;
+    font-weight:700; font-size:1rem; border:none; cursor:pointer;
+    box-shadow:0 8px 30px rgba(79,70,229,.5);
+    transition: transform .25s, box-shadow .25s;
+    text-decoration:none;
+  }
+  .hero-btn:hover { transform:translateY(-3px); box-shadow:0 16px 40px rgba(79,70,229,.6); }
+
+  .hero-scroll {
+    position:absolute; bottom:32px; z-index:2;
+    display:flex; flex-direction:column; align-items:center; gap:8px;
+    color:rgba(255,255,255,.4); font-size:.75rem;
+  }
+  .scroll-line {
+    width:1px; height:48px;
+    background:linear-gradient(to bottom,rgba(167,139,250,.8),transparent);
+    animation:scrollAnim 1.5s ease-in-out infinite;
+  }
+  @keyframes scrollAnim{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+  /* ─── SECTIONS COMMON ─── */
+  section { padding: 100px 40px; }
+  .section-label {
+    display:inline-flex; align-items:center; gap:8px;
+    color:var(--indigo); font-size:.78rem; font-weight:700;
+    letter-spacing:.15em; text-transform:uppercase; margin-bottom:12px;
+  }
+  .section-label::before {
+    content:''; width:24px; height:2px;
+    background:var(--grad1); border-radius:2px;
+  }
+  .section-title {
+    font-family:'Playfair Display',serif;
+    font-size:clamp(2rem,4vw,3rem);
+    color:var(--text); margin-bottom:16px; line-height:1.2;
+  }
+  .section-desc {
+    color:var(--muted); font-size:1rem; max-width:520px; line-height:1.8;
+  }
+
+  /* fade-in scroll */
+  .fade-in {
+    opacity:0; transform:translateY(40px);
+    transition: opacity .7s ease, transform .7s ease;
+  }
+  .fade-in.visible { opacity:1; transform:none; }
+
+  /* ─── INTRO ─── */
+  #intro {
+    background:#fff;
+    display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:center;
+  }
+  .intro-photo-grid {
+    display:grid; grid-template-columns:1fr 1fr; gap:12px;
+    position:relative;
+  }
+  .intro-photo-item {
+    border-radius:16px; overflow:hidden; aspect-ratio:4/3;
+    box-shadow:0 8px 30px rgba(79,70,229,.12);
+    cursor:pointer; transition:transform .3s;
+  }
+  .intro-photo-item:hover { transform:scale(1.03); }
+  .intro-photo-item:first-child { grid-column:span 2; aspect-ratio:16/7; }
+  .intro-photo-item img { width:100%; height:100%; object-fit:cover; }
+  .intro-photo-placeholder {
+    width:100%; height:100%; min-height:120px;
+    background:linear-gradient(135deg,#e0e7ff,#ede9fe);
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    color:var(--indigo); gap:6px; font-size:.8rem;
+  }
+
+  .intro-stats {
+    display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-top:40px;
+  }
+  .stat-box {
+    text-align:center; padding:20px 12px;
+    background:linear-gradient(135deg,#f5f3ff,#ede9fe);
+    border-radius:16px;
+  }
+  .stat-num {
+    font-family:'Playfair Display',serif;
+    font-size:2rem; font-weight:700;
+    background:var(--grad1); -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+  }
+  .stat-lbl { font-size:.78rem; color:var(--muted); font-weight:600; margin-top:4px; }
+
+  /* ─── MEMBERS ─── */
+  #members {
+    background: linear-gradient(180deg, #f8f7ff 0%, #f0f0ff 100%);
+  }
+  .members-header { text-align:center; margin-bottom:56px; }
+  .members-grid {
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(260px,1fr));
+    gap:28px; max-width:1200px; margin:0 auto;
+  }
+
+  .member-card {
+    background:#fff; border-radius:24px;
+    overflow:hidden;
+    box-shadow:0 4px 24px rgba(79,70,229,.08);
+    border:1px solid var(--border);
+    transition: transform .35s cubic-bezier(.34,1.56,.64,1), box-shadow .35s;
+    cursor:pointer; position:relative;
+  }
+  .member-card:hover {
+    transform:translateY(-10px) scale(1.02);
+    box-shadow:0 20px 60px rgba(79,70,229,.18);
+  }
+  .member-card.leader { border-color:rgba(250,204,21,.5); }
+  .member-card.leader::before {
+    content:'👑 Nhóm trưởng'; position:absolute; top:14px; right:14px;
+    background:linear-gradient(135deg,#fbbf24,#f59e0b);
+    color:#fff; font-size:.7rem; font-weight:700; padding:4px 12px;
+    border-radius:100px; z-index:3; letter-spacing:.06em;
+  }
+
+  .member-photo-wrap {
+    position:relative; height:220px; overflow:hidden;
+    background:linear-gradient(135deg,#e0e7ff,#ede9fe);
+  }
+  .member-photo-wrap img { width:100%; height:100%; object-fit:cover; display:block; }
+  .member-photo-placeholder {
+    width:100%; height:100%;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    background:linear-gradient(135deg,#e0e7ff,#ede9fe);
+    color:var(--indigo); gap:8px; font-size:.85rem;
+  }
+  .member-photo-placeholder .avatar-icon { font-size:3.5rem; }
+  .member-overlay {
+    position:absolute; inset:0; background:rgba(79,70,229,.75);
+    display:flex; align-items:center; justify-content:center;
+    opacity:0; transition:.3s;
+    color:#fff; font-weight:600; font-size:.9rem; gap:8px;
+  }
+  .member-card:hover .member-overlay { opacity:1; }
+  .change-photo-btn {
+    position:absolute; bottom:12px; right:12px; z-index:4;
+    background:rgba(255,255,255,.9); border:none; border-radius:10px;
+    padding:6px 12px; font-size:.75rem; font-weight:700; color:var(--indigo);
+    cursor:pointer; transition:.2s; backdrop-filter:blur(8px);
+  }
+  .change-photo-btn:hover { background:#fff; transform:scale(1.05); }
+
+  .member-body { padding:20px 22px 24px; }
+  .member-name {
+    font-family:'Playfair Display',serif; font-size:1.2rem; font-weight:700; color:var(--text);
+    margin-bottom:4px;
+  }
+  .member-role {
+    font-size:.78rem; font-weight:700; color:var(--indigo);
+    letter-spacing:.08em; text-transform:uppercase; margin-bottom:12px;
+  }
+  .member-quote {
+    font-size:.88rem; color:var(--muted); line-height:1.65;
+    font-style:italic;
+    border-left:3px solid #e0e7ff; padding-left:12px;
+  }
+
+  /* ─── MODAL ─── */
+  .modal-overlay {
+    position:fixed; inset:0; background:rgba(15,10,40,.8);
+    backdrop-filter:blur(12px); z-index:9999;
+    display:flex; align-items:center; justify-content:center;
+    padding:24px; opacity:0; pointer-events:none;
+    transition:opacity .3s;
+  }
+  .modal-overlay.open { opacity:1; pointer-events:all; }
+  .modal-box {
+    background:#fff; border-radius:28px;
+    width:100%; max-width:560px; max-height:90vh; overflow-y:auto;
+    transform:translateY(30px) scale(.96);
+    transition:transform .35s cubic-bezier(.34,1.56,.64,1);
+    box-shadow:0 40px 120px rgba(0,0,0,.4);
+  }
+  .modal-overlay.open .modal-box { transform:none; }
+  .modal-photo { width:100%; height:260px; object-fit:cover; border-radius:28px 28px 0 0; }
+  .modal-photo-placeholder {
+    width:100%; height:260px;
+    background:linear-gradient(135deg,#e0e7ff,#ede9fe);
+    display:flex; align-items:center; justify-content:center;
+    font-size:5rem;
+    border-radius:28px 28px 0 0;
+  }
+  .modal-body { padding:28px 32px 32px; }
+  .modal-role { font-size:.78rem; font-weight:700; color:var(--indigo); letter-spacing:.1em; text-transform:uppercase; margin-bottom:8px; }
+  .modal-name { font-family:'Playfair Display',serif; font-size:1.8rem; margin-bottom:20px; }
+  .modal-field label { font-size:.78rem; font-weight:700; color:var(--muted); letter-spacing:.1em; text-transform:uppercase; display:block; margin-bottom:6px; }
+  .modal-field { margin-bottom:18px; }
+  .modal-field p { font-size:.95rem; line-height:1.75; color:var(--text); }
+  .modal-field textarea, .modal-field input {
+    width:100%; padding:12px 16px;
+    border:2px solid var(--border); border-radius:12px;
+    font-family:'Nunito',sans-serif; font-size:.9rem; color:var(--text);
+    outline:none; transition:.2s; resize:vertical;
+    background:#fafafa;
+  }
+  .modal-field textarea:focus, .modal-field input:focus { border-color:var(--indigo); background:#fff; }
+  .modal-actions { display:flex; gap:12px; margin-top:24px; flex-wrap:wrap; }
+  .btn-save {
+    flex:1; padding:12px; border-radius:12px;
+    background:var(--grad1); color:#fff; border:none;
+    font-weight:700; font-size:.95rem; cursor:pointer;
+    transition:.2s;
+  }
+  .btn-save:hover { opacity:.9; transform:translateY(-2px); }
+  .btn-close {
+    padding:12px 20px; border-radius:12px;
+    border:2px solid var(--border); background:#fff; color:var(--muted);
+    font-weight:700; cursor:pointer; transition:.2s;
+  }
+  .btn-close:hover { border-color:var(--indigo); color:var(--indigo); }
+
+  /* ─── ALBUM ─── */
+  #album { background:#fff; }
+  .album-header { display:flex; align-items:flex-start; justify-content:space-between; flex-wrap:wrap; gap:20px; margin-bottom:40px; }
+  .upload-zone {
+    border:2px dashed rgba(79,70,229,.3); border-radius:20px;
+    padding:40px; text-align:center; cursor:pointer;
+    transition:border-color .25s, background .25s; margin-bottom:32px;
+    background:rgba(240,238,255,.4);
+  }
+  .upload-zone:hover { border-color:var(--indigo); background:rgba(240,238,255,.8); }
+  .upload-zone .upload-icon { font-size:3rem; margin-bottom:12px; }
+  .upload-zone p { color:var(--muted); font-size:.9rem; }
+  .upload-zone strong { color:var(--indigo); }
+
+  .album-grid {
+    display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:16px;
+  }
+  .album-item {
+    position:relative; border-radius:16px; overflow:hidden;
+    aspect-ratio:1; cursor:pointer;
+    box-shadow:0 4px 20px rgba(79,70,229,.1);
+    transition:transform .3s, box-shadow .3s;
+  }
+  .album-item:hover { transform:scale(1.04); box-shadow:0 12px 40px rgba(79,70,229,.2); }
+  .album-item img { width:100%; height:100%; object-fit:cover; display:block; }
+  .album-item-overlay {
+    position:absolute; inset:0; background:rgba(0,0,0,.45);
+    display:flex; align-items:center; justify-content:center; gap:12px;
+    opacity:0; transition:.25s;
+  }
+  .album-item:hover .album-item-overlay { opacity:1; }
+  .album-btn {
+    width:40px; height:40px; border-radius:50%; border:none; cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+    font-size:1rem; transition:.2s;
+  }
+  .album-btn.view { background:rgba(255,255,255,.9); color:var(--indigo); }
+  .album-btn.del { background:rgba(244,63,94,.85); color:#fff; }
+  .album-btn:hover { transform:scale(1.15); }
+
+  /* lightbox */
+  .lightbox {
+    position:fixed; inset:0; background:rgba(0,0,0,.92);
+    z-index:9999; display:flex; align-items:center; justify-content:center;
+    opacity:0; pointer-events:none; transition:opacity .3s; padding:20px;
+  }
+  .lightbox.open { opacity:1; pointer-events:all; }
+  .lightbox img { max-width:100%; max-height:90vh; border-radius:12px; object-fit:contain; }
+  .lightbox-close {
+    position:absolute; top:20px; right:24px;
+    background:rgba(255,255,255,.15); border:none; color:#fff;
+    font-size:1.5rem; width:48px; height:48px; border-radius:50%;
+    cursor:pointer; transition:.2s;
+  }
+  .lightbox-close:hover { background:rgba(255,255,255,.3); }
+
+  /* ─── MESSAGE ─── */
+  #message {
+    background:linear-gradient(135deg,#1e1b4b 0%,#312e81 50%,#4c1d95 100%);
+    position:relative; overflow:hidden;
+  }
+  #message .deco {
+    position:absolute; border-radius:50%; pointer-events:none;
+    background:rgba(139,92,246,.12);
+  }
+  #message .deco-1 { width:500px; height:500px; top:-200px; right:-150px; }
+  #message .deco-2 { width:350px; height:350px; bottom:-150px; left:-100px; }
+  .message-inner { position:relative; z-index:1; max-width:760px; margin:0 auto; text-align:center; }
+  .message-inner .section-label { color:rgba(196,181,253,.8); }
+  .message-inner .section-label::before { background:rgba(196,181,253,.5); }
+  .message-inner .section-title { color:#fff; }
+  .message-textarea {
+    width:100%; min-height:220px; margin-top:32px;
+    padding:28px; border-radius:20px;
+    background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.15);
+    color:#e0d9ff; font-family:'Nunito',sans-serif; font-size:1rem;
+    line-height:1.85; resize:vertical; outline:none; transition:.2s;
+  }
+  .message-textarea:focus { background:rgba(255,255,255,.11); border-color:rgba(167,139,250,.5); }
+  .message-save {
+    margin-top:16px; padding:12px 36px;
+    border-radius:100px; border:none; cursor:pointer;
+    background:rgba(167,139,250,.25); color:#c4b5fd;
+    font-weight:700; font-size:.9rem; border:1px solid rgba(167,139,250,.3);
+    transition:.2s;
+  }
+  .message-save:hover { background:rgba(167,139,250,.4); color:#fff; }
+  .save-toast {
+    display:inline-block; margin-left:12px; color:#86efac; font-size:.85rem; opacity:0; transition:opacity .3s;
+  }
+  .save-toast.show { opacity:1; }
+
+  /* ─── DOWNLOAD ─── */
+  #download {
+    background:var(--bg); text-align:center;
+  }
+  .dl-card {
+    display:inline-flex; flex-direction:column; align-items:center;
+    padding:56px 64px; border-radius:32px;
+    background:#fff; border:1px solid var(--border);
+    box-shadow:0 20px 80px rgba(79,70,229,.1);
+    max-width:520px; width:100%;
+  }
+  .dl-icon { font-size:4rem; margin-bottom:20px; }
+  .dl-title { font-family:'Playfair Display',serif; font-size:1.8rem; margin-bottom:12px; }
+  .dl-desc { color:var(--muted); font-size:.9rem; line-height:1.7; margin-bottom:32px; }
+  .dl-btn {
+    display:inline-flex; align-items:center; gap:10px;
+    padding:16px 40px; border-radius:100px;
+    background:var(--grad1); color:#fff; border:none; cursor:pointer;
+    font-weight:700; font-size:1rem;
+    box-shadow:0 8px 30px rgba(79,70,229,.4);
+    transition: transform .25s, box-shadow .25s;
+  }
+  .dl-btn:hover { transform:translateY(-3px); box-shadow:0 16px 50px rgba(79,70,229,.5); }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background:#1e1b4b; color:rgba(196,181,253,.6);
+    text-align:center; padding:32px 24px; font-size:.85rem; line-height:1.9;
+  }
+  footer strong { color:#c4b5fd; }
+
+  /* ─── RESPONSIVE ─── */
+  @media(max-width:768px) {
+    nav { padding:14px 20px; }
+    .nav-links { display:none; }
+    section { padding:72px 20px; }
+    #intro { grid-template-columns:1fr; gap:40px; }
+    .intro-stats { grid-template-columns:repeat(3,1fr); }
+    .members-grid { grid-template-columns:1fr 1fr; }
+    .dl-card { padding:40px 28px; }
+  }
+  @media(max-width:480px) {
+    .members-grid { grid-template-columns:1fr; }
+    .album-grid { grid-template-columns:repeat(2,1fr); }
+    .intro-stats { grid-template-columns:1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+<canvas id="starCanvas"></canvas>
+<canvas id="starCanvas"></canvas>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Tổ 1 – 12A5</div>
+  <ul class="nav-links">
+    <li><a href="#intro">Giới thiệu</a></li>
+    <li><a href="#members">Thành viên</a></li>
+    <li><a href="#album">Album</a></li>
+    <li><a href="#message">Lưu bút</a></li>
+    <li><a href="#download">Tải về</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-stars" id="starsContainer"></div>
+
+  <div class="hero-photo-wrap" onclick="document.getElementById('heroPhotoInput').click()" id="heroPhotoWrap">
+    <div class="hero-photo-placeholder" id="heroPlaceholder">
+      <span class="icon">🏫</span>
+      <span>Click để thêm ảnh tập thể</span>
+    </div>
+    <img id="heroImg" style="display:none" src="" alt="Ảnh tập thể">
+    <div class="hero-change-hint">📷 Đổi ảnh</div>
+  </div>
+  <input type="file" id="heroPhotoInput" accept="image/*" style="display:none" onchange="setHeroPhoto(this)">
+
+  <div class="hero-content">
+    <div class="hero-tag">✨ Kỷ niệm thanh xuân</div>
+    <h1 class="hero-title" id="heroTitle"><span id="typedText"></span><span class="cursor"></span></h1>
+    <p class="hero-quote">"Chúng ta không chỉ là bạn học, mà là một phần thanh xuân của nhau."</p>
+    <a href="#members" class="hero-btn">💫 Xem kỷ niệm</a>
+  </div>
+  <div class="hero-scroll"><div class="scroll-line"></div><span>Cuộn xuống</span></div>
+</section>
+
+<!-- INTRO -->
+<section id="intro">
+  <div class="fade-in">
+    <div class="section-label">Hành trình của chúng ta</div>
+    <h2 class="section-title">3 Năm Cấp 3 –<br>1 Năm Chung Tổ</h2>
+    <p class="section-desc">Từ những ngày đầu bỡ ngỡ bước vào lớp 10, đến khoảnh khắc chung tổ năm 12, chúng mình đã cùng nhau trải qua bao nhiêu là kỷ niệm – từ những buổi học nhóm đêm khuya đến những trận cười không dứt giữa giờ học.</p>
+    <div class="intro-stats">
+      <div class="stat-box"><div class="stat-num">3</div><div class="stat-lbl">Năm cùng lớp</div></div>
+      <div class="stat-box"><div class="stat-num">8</div><div class="stat-lbl">Thành viên</div></div>
+      <div class="stat-box"><div class="stat-num">∞</div><div class="stat-lbl">Kỷ niệm</div></div>
+    </div>
+  </div>
+  <div class="intro-photo-grid fade-in">
+    <div class="intro-photo-item" onclick="triggerIntroPhoto(0)">
+      <img id="introImg0" style="display:none" src="" alt="">
+      <div class="intro-photo-placeholder" id="introP0"><span>📸</span><span>Thêm ảnh</span></div>
+    </div>
+    <div class="intro-photo-item" onclick="triggerIntroPhoto(1)">
+      <img id="introImg1" style="display:none" src="" alt="">
+      <div class="intro-photo-placeholder" id="introP1"><span>📸</span><span>Thêm ảnh</span></div>
+    </div>
+    <div class="intro-photo-item" onclick="triggerIntroPhoto(2)">
+      <img id="introImg2" style="display:none" src="" alt="">
+      <div class="intro-photo-placeholder" id="introP2"><span>📸</span><span>Thêm ảnh</span></div>
+    </div>
+    <input type="file" id="introFileInput" accept="image/*" style="display:none" onchange="setIntroPhoto(this)">
+  </div>
+</section>
+
+<!-- MEMBERS -->
+<section id="members">
+  <div class="members-header fade-in">
+    <div class="section-label">Những con người tuyệt vời</div>
+    <h2 class="section-title">Thành Viên Tổ 1</h2>
+    <p class="section-desc" style="margin:0 auto">Mỗi người một tính cách, nhưng tất cả đều có chung một điều – chúng mình là Tổ 1!</p>
+  </div>
+  <div class="members-grid" id="membersGrid"></div>
+</section>
+
+<!-- ALBUM -->
+<section id="album">
+  <div class="album-header fade-in">
+    <div>
+      <div class="section-label">Khoảnh khắc đáng nhớ</div>
+      <h2 class="section-title">Album Kỷ Niệm</h2>
+    </div>
+  </div>
+  <div class="upload-zone fade-in" onclick="document.getElementById('albumInput').click()">
+    <div class="upload-icon">🖼️</div>
+    <p><strong>Click để tải ảnh lên</strong> hoặc kéo thả vào đây</p>
+    <p style="margin-top:6px;font-size:.8rem">Hỗ trợ JPG, PNG, GIF, WEBP</p>
+    <input type="file" id="albumInput" accept="image/*" multiple style="display:none" onchange="addAlbumPhotos(this)">
+  </div>
+  <div class="album-grid" id="albumGrid"></div>
+</section>
+
+<!-- MESSAGE -->
+<section id="message">
+  <div class="deco deco-1"></div>
+  <div class="deco deco-2"></div>
+  <div class="message-inner fade-in">
+    <div class="section-label">Từ trái tim</div>
+    <h2 class="section-title">Lời Gửi Tập Thể</h2>
+    <p style="color:rgba(196,181,253,.7);margin-top:12px;font-size:.95rem">Hãy viết những điều muốn nhắn gửi, ghi lại kỷ niệm, hoặc đơn giản là lời cảm ơn đến nhau ❤️</p>
+    <textarea class="message-textarea" id="collectiveMsg" placeholder="Viết lời gửi tập thể ở đây...">Tổ 1 ơi, ba năm cấp ba cùng nhau, một năm chung tổ – những ngày tháng đó chắc sẽ mãi là ký ức đẹp nhất trong lòng mình. Dù sau này ai đi đâu, làm gì, mình vẫn sẽ nhớ về những buổi sáng cùng nhau giải bài tập, những trận cười té ghế, những lần cùng nhau vượt qua kỳ thi. Cảm ơn tất cả vì đã là một phần thanh xuân của nhau. 🌸</textarea>
+    <div style="margin-top:12px">
+      <button class="message-save" onclick="saveMessage()">💾 Lưu lại</button>
+      <span class="save-toast" id="msgToast">✓ Đã lưu!</span>
+    </div>
+  </div>
+</section>
+
+<!-- DOWNLOAD -->
+<section id="download">
+  <div class="fade-in">
+    <div class="dl-card">
+      <div class="dl-icon">📥</div>
+      <div class="dl-title">Tải Website Kỷ Niệm</div>
+      <p class="dl-desc">Xuất toàn bộ nội dung – ảnh, thông tin thành viên, album, lời gửi – thành một file HTML duy nhất. Mở offline được, chia sẻ cho cả nhóm!</p>
+      <button class="dl-btn" onclick="downloadSite()">⬇️ Tải xuống (.html)</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <strong>Tổ 1 – 12A5</strong><br>
+  3 năm thanh xuân · 1 năm chung tổ · Cả đời kỷ niệm<br>
+  <span style="font-size:.78rem;opacity:.5">Made with ❤️ – Website kỷ niệm</span>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="memberModal" onclick="closeModalOnBg(event)">
+  <div class="modal-box" id="modalBox">
+    <div id="modalPhotoWrap"></div>
+    <div class="modal-body">
+      <div class="modal-role" id="mRole"></div>
+      <div class="modal-name" id="mName"></div>
+      <div class="modal-field">
+        <label>Câu nói kỷ niệm</label>
+        <textarea id="mQuote" rows="2" placeholder="Câu nói đặc trưng của bạn..."></textarea>
+      </div>
+      <div class="modal-field">
+        <label>Lời nhắn riêng</label>
+        <textarea id="mMsg" rows="4" placeholder="Nhắn gửi đến các thành viên còn lại..."></textarea>
+      </div>
+      <div class="modal-actions">
+        <button class="btn-save" onclick="saveMember()">💾 Lưu thông tin</button>
+        <button class="btn-close" onclick="closeModal()">Đóng</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+  <img id="lightboxImg" src="" alt="">
+</div>
+
+<script>
+// ─── DATA ───
+const DEFAULT_MEMBERS = [
+  { id:0, name:"Nguyễn Văn A", role:"leader", quote:"Làm nhóm trưởng mà không lo được cho cả nhóm thì buồn lắm 😅", msg:"Cảm ơn mọi người đã tin tưởng mình suốt 1 năm qua. Tổ 1 mãi số 1! 💪", photo:"" },
+  { id:1, name:"Trần Thị B", role:"member", quote:"Học hay không học, vui là được!", msg:"Nhớ những buổi học nhóm đến 11h đêm lắm á tụi mày ơi 🌙", photo:"" },
+  { id:2, name:"Lê Văn C", role:"member", quote:"Đời là bể khổ, mà tổ 1 là bờ bến 😂", msg:"Gặp được tụi mày là điều may mắn nhất 3 năm cấp 3 của tao ❤️", photo:"" },
+  { id:3, name:"Phạm Thị D", role:"member", quote:"Bài không hiểu hỏi thầy, thầy không có hỏi bạn!", msg:"Tổ 1 muôn năm! Đời sinh viên rồi vẫn phải nhớ đến tụi mày nha 🌸", photo:"" },
+  { id:4, name:"Hoàng Văn E", role:"member", quote:"Ngủ 5 tiếng thi vẫn đậu, bí quyết là... may mắn 🎲", msg:"Cảm ơn tất cả vì những năm tháng tuyệt vời này 🙏", photo:"" },
+  { id:5, name:"Ngô Thị F", role:"member", quote:"Tổ 1 – nơi tôi tìm thấy bạn bè thật sự!", msg:"Hy vọng sau này chúng mình vẫn còn liên lạc được với nhau nhé 💌", photo:"" },
+  { id:6, name:"Đinh Văn G", role:"member", quote:"Học đi, chơi cũng được, miễn đừng trốn tiết 😁", msg:"Ba năm ngắn mà dài, sẽ nhớ mãi những khoảnh khắc này!", photo:"" },
+  { id:7, name:"Vũ Thị H", role:"member", quote:"Câu hỏi khó nhất: 'Học chưa?' – Câu trả lời: 'Sắp học' 😆", msg:"Tổ 1 luôn là nơi mình trở về trong ký ức nhé ❤️🌻", photo:"" }
+];
+
+let members = JSON.parse(localStorage.getItem('t1_members') || 'null') || JSON.parse(JSON.stringify(DEFAULT_MEMBERS));
+let albumPhotos = JSON.parse(localStorage.getItem('t1_album') || '[]');
+let introPhotos = JSON.parse(localStorage.getItem('t1_intro') || '["","",""]');
+let heroPhoto = localStorage.getItem('t1_hero') || '';
+let currentMemberIdx = -1;
+let currentIntroIdx = 0;
+
+// ─── STARS ───
+(function createStars(){
+  const c = document.getElementById('starsContainer');
+  for(let i=0;i<80;i++){
+    const s = document.createElement('div');
+    s.className='star';
+    const sz = Math.random()*2.5+1;
+    s.style.cssText=`width:${sz}px;height:${sz}px;left:${Math.random()*100}%;top:${Math.random()*100}%;--d:${(Math.random()*4+2).toFixed(1)}s`;
+    c.appendChild(s);
+  }
+})();
+
+// ─── TYPING ───
+(function typeText(){
+  const el = document.getElementById('typedText');
+  const text = "Tổ 1 – 12A5 | 3 năm thanh xuân – 1 năm chung tổ – Cả đời kỷ niệm";
+  let i=0;
+  function type(){
+    if(i<=text.length){
+      el.textContent=text.slice(0,i); i++;
+      setTimeout(type, i<15?100:55);
+    }
+  }
+  setTimeout(type,800);
+})();
+
+// ─── SCROLL FADE ───
+const fadeEls = document.querySelectorAll('.fade-in');
+const io = new IntersectionObserver(entries=>{
+  entries.forEach((e,idx)=>{
+    if(e.isIntersecting){
+      setTimeout(()=>e.target.classList.add('visible'), idx*80);
+      io.unobserve(e.target);
+    }
+  });
+},{threshold:.12});
+fadeEls.forEach(el=>io.observe(el));
+
+// ─── HERO PHOTO ───
+function setHeroPhoto(inp){
+  const f=inp.files[0]; if(!f) return;
+  const r=new FileReader();
+  r.onload=e=>{
+    heroPhoto=e.target.result;
+    localStorage.setItem('t1_hero',heroPhoto);
+    renderHero();
+  };
+  r.readAsDataURL(f);
+}
+function renderHero(){
+  const img=document.getElementById('heroImg');
+  const ph=document.getElementById('heroPlaceholder');
+  if(heroPhoto){ img.src=heroPhoto; img.style.display='block'; ph.style.display='none'; }
+  else { img.style.display='none'; ph.style.display='flex'; }
+}
+renderHero();
+
+// ─── INTRO PHOTOS ───
+let _introIdx=0;
+function triggerIntroPhoto(i){ _introIdx=i; document.getElementById('introFileInput').click(); }
+function setIntroPhoto(inp){
+  const f=inp.files[0]; if(!f) return;
+  const r=new FileReader();
+  r.onload=e=>{
+    introPhotos[_introIdx]=e.target.result;
+    localStorage.setItem('t1_intro',JSON.stringify(introPhotos));
+    renderIntroPhotos();
+  };
+  r.readAsDataURL(f);
+  inp.value='';
+}
+function renderIntroPhotos(){
+  [0,1,2].forEach(i=>{
+    const img=document.getElementById('introImg'+i);
+    const ph=document.getElementById('introP'+i);
+    if(introPhotos[i]){ img.src=introPhotos[i]; img.style.display='block'; ph.style.display='none'; }
+    else { img.style.display='none'; ph.style.display='flex'; }
+  });
+}
+renderIntroPhotos();
+
+// ─── MEMBERS ───
+function renderMembers(){
+  const grid=document.getElementById('membersGrid');
+  grid.innerHTML='';
+  members.forEach((m,i)=>{
+    const card=document.createElement('div');
+    card.className='member-card fade-in'+(m.role==='leader'?' leader':'');
+    card.onclick=()=>openModal(i);
+    card.innerHTML=`
+      <div class="member-photo-wrap">
+        ${m.photo
+          ? `<img src="${m.photo}" alt="${m.name}">`
+          : `<div class="member-photo-placeholder"><span class="avatar-icon">${['👦','👧','🧑','👩','🧒','👦','👧','🧑'][i]}</span><span>Chưa có ảnh</span></div>`
+        }
+        <div class="member-overlay">👁️ Xem chi tiết</div>
+        <button class="change-photo-btn" onclick="event.stopPropagation();triggerMemberPhoto(${i})">📷 Đổi ảnh</button>
+      </div>
+      <div class="member-body">
+        <div class="member-name">${m.name}</div>
+        <div class="member-role">${m.role==='leader'?'Nhóm trưởng':'Thành viên'}</div>
+        <div class="member-quote">"${m.quote}"</div>
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+  // re-observe
+  grid.querySelectorAll('.fade-in').forEach((el,idx)=>{
+    setTimeout(()=>el.classList.add('visible'),idx*80);
+  });
+}
+renderMembers();
+
+function triggerMemberPhoto(i){
+  const inp=document.createElement('input');
+  inp.type='file'; inp.accept='image/*';
+  inp.onchange=e=>{
+    const f=e.target.files[0]; if(!f) return;
+    const r=new FileReader();
+    r.onload=ev=>{
+      members[i].photo=ev.target.result;
+      saveMembers(); renderMembers();
+    };
+    r.readAsDataURL(f);
+  };
+  inp.click();
+}
+
+// ─── MODAL ───
+function openModal(i){
+  currentMemberIdx=i;
+  const m=members[i];
+  document.getElementById('mRole').textContent=m.role==='leader'?'👑 Nhóm trưởng':'✨ Thành viên';
+  document.getElementById('mName').textContent=m.name;
+  document.getElementById('mQuote').value=m.quote;
+  document.getElementById('mMsg').value=m.msg;
+  const pw=document.getElementById('modalPhotoWrap');
+  pw.innerHTML=m.photo
+    ? `<img class="modal-photo" src="${m.photo}" alt="${m.name}">`
+    : `<div class="modal-photo-placeholder">${['👦','👧','🧑','👩','🧒','👦','👧','🧑'][i]}</div>`;
+  document.getElementById('memberModal').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeModal(){
+  document.getElementById('memberModal').classList.remove('open');
+  document.body.style.overflow='';
+}
+function closeModalOnBg(e){
+  if(e.target===document.getElementById('memberModal')) closeModal();
+}
+function saveMember(){
+  if(currentMemberIdx<0) return;
+  members[currentMemberIdx].quote=document.getElementById('mQuote').value;
+  members[currentMemberIdx].msg=document.getElementById('mMsg').value;
+  saveMembers(); renderMembers();
+  const btn=document.querySelector('.btn-save');
+  btn.textContent='✓ Đã lưu!'; btn.style.background='linear-gradient(135deg,#10b981,#059669)';
+  setTimeout(()=>{ btn.textContent='💾 Lưu thông tin'; btn.style.background=''; },1500);
+}
+function saveMembers(){ localStorage.setItem('t1_members',JSON.stringify(members)); }
+
+// ─── ALBUM ───
+function addAlbumPhotos(inp){
+  const files=Array.from(inp.files); if(!files.length) return;
+  let loaded=0;
+  files.forEach(f=>{
+    const r=new FileReader();
+    r.onload=e=>{
+      albumPhotos.push(e.target.result);
+      loaded++;
+      if(loaded===files.length){
+        localStorage.setItem('t1_album',JSON.stringify(albumPhotos));
+        renderAlbum();
+      }
+    };
+    r.readAsDataURL(f);
+  });
+  inp.value='';
+}
+function renderAlbum(){
+  const grid=document.getElementById('albumGrid');
+  grid.innerHTML='';
+  albumPhotos.forEach((src,i)=>{
+    const item=document.createElement('div');
+    item.className='album-item';
+    item.innerHTML=`
+      <img src="${src}" alt="Ảnh ${i+1}">
+      <div class="album-item-overlay">
+        <button class="album-btn view" onclick="event.stopPropagation();openLightbox('${src}')">🔍</button>
+        <button class="album-btn del" onclick="event.stopPropagation();deleteAlbumPhoto(${i})">🗑️</button>
+      </div>
+    `;
+    item.onclick=()=>openLightbox(src);
+    grid.appendChild(item);
+  });
+}
+function deleteAlbumPhoto(i){
+  albumPhotos.splice(i,1);
+  localStorage.setItem('t1_album',JSON.stringify(albumPhotos));
+  renderAlbum();
+}
+renderAlbum();
+
+// ─── LIGHTBOX ───
+function openLightbox(src){
+  document.getElementById('lightboxImg').src=src;
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeLightbox(){
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow='';
+}
+
+// ─── MESSAGE ───
+(function loadMsg(){
+  const saved=localStorage.getItem('t1_message');
+  if(saved) document.getElementById('collectiveMsg').value=saved;
+})();
+function saveMessage(){
+  localStorage.setItem('t1_message',document.getElementById('collectiveMsg').value);
+  const t=document.getElementById('msgToast');
+  t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2000);
+}
+
+// ─── DRAG & DROP ───
+const uploadZone=document.querySelector('.upload-zone');
+uploadZone.addEventListener('dragover',e=>{ e.preventDefault(); uploadZone.style.borderColor='var(--indigo)'; });
+uploadZone.addEventListener('dragleave',()=>{ uploadZone.style.borderColor=''; });
+uploadZone.addEventListener('drop',e=>{
+  e.preventDefault(); uploadZone.style.borderColor='';
+  const files=Array.from(e.dataTransfer.files).filter(f=>f.type.startsWith('image/'));
+  if(!files.length) return;
+  let loaded=0;
+  files.forEach(f=>{
+    const r=new FileReader();
+    r.onload=ev=>{
+      albumPhotos.push(ev.target.result); loaded++;
+      if(loaded===files.length){ localStorage.setItem('t1_album',JSON.stringify(albumPhotos)); renderAlbum(); }
+    };
+    r.readAsDataURL(f);
+  });
+});
+
+// ─── DOWNLOAD ───
+function downloadSite(){
+  const btn = document.querySelector('.dl-btn');
+  btn.textContent = '⏳ Đang xuất...'; btn.disabled = true;
+  const currentMsg = document.getElementById('collectiveMsg').value;
+  let out = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+
+  function spliceStr(s, marker, replacement){
+    const idx = s.indexOf(marker);
+    if(idx === -1) return s;
+    return s.slice(0, idx) + replacement + s.slice(idx + marker.length);
+  }
+
+  out = spliceStr(out,
+    "let members = JSON.parse(localStorage.getItem('t1_members') || 'null') || JSON.parse(JSON.stringify(DEFAULT_MEMBERS));",
+    'let members = ' + JSON.stringify(members) + ';'
+  );
+  out = spliceStr(out,
+    "let albumPhotos = JSON.parse(localStorage.getItem('t1_album') || '[]');",
+    'let albumPhotos = ' + JSON.stringify(albumPhotos) + ';'
+  );
+  out = spliceStr(out,
+    "let introPhotos = JSON.parse(localStorage.getItem('t1_intro') || '[\"\"' + ',\"\"' + ',\"\"]');",
+    'let introPhotos = ' + JSON.stringify(introPhotos) + ';'
+  );
+  out = spliceStr(out,
+    "let heroPhoto = localStorage.getItem('t1_hero') || '';",
+    'let heroPhoto = ' + JSON.stringify(heroPhoto) + ';'
+  );
+
+  // Bake textarea
+  const ta = '<textarea class="message-textarea" id="collectiveMsg"';
+  const ti = out.indexOf(ta);
+  if(ti > -1){
+    const tend = out.indexOf('>', ti) + 1;
+    const tclose = out.indexOf('</textarea>', tend);
+    const safe = currentMsg.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    out = out.slice(0, tend) + safe + out.slice(tclose);
+  }
+
+  const blob = new Blob([out], {type:'text/html;charset=utf-8'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = 'To1-12A5-KyNiem.html';
+  document.body.appendChild(a); a.click();
+  document.body.removeChild(a); URL.revokeObjectURL(url);
+  setTimeout(() => { btn.textContent = '⬇️ Tải xuống (.html)'; btn.disabled = false; }, 1400);
+}
+
+
+// ─── CANVAS: SAO RƠI TOÀN TRANG ───
+(function initFallingStars(){
+  var canvas = document.getElementById('starCanvas');
+  if(!canvas) return;
+  var ctx = canvas.getContext('2d');
+  var W, H, staticStars = [], shooters = [];
+
+  function resize(){
+    W = canvas.width  = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', function(){ resize(); buildStars(); });
+
+  function buildStars(){
+    staticStars = [];
+    var n = Math.min(Math.floor(W * H / 6500), 200);
+    for(var i = 0; i < n; i++){
+      staticStars.push({
+        x: Math.random() * W,
+        y: Math.random() * H,
+        r: Math.random() * 1.4 + 0.3,
+        a: Math.random(),
+        da: (Math.random() * 0.006 + 0.002) * (Math.random() < 0.5 ? 1 : -1),
+        base: Math.random() * 0.45 + 0.08
+      });
+    }
+  }
+  buildStars();
+
+  // Sao băng
+  function Shooter(){ this.reset(); }
+  Shooter.prototype.reset = function(){
+    this.x     = Math.random() * W * 1.4 - W * 0.2;
+    this.y     = -30;
+    this.len   = Math.random() * 120 + 70;
+    this.speed = Math.random() * 4 + 2.5;
+    this.angle = Math.PI / 4 + (Math.random() - 0.5) * 0.3;
+    this.alpha = 0;
+    this.fade  = Math.random() * 0.014 + 0.007;
+    this.alive   = true;
+    this.growing = true;
+    var palette = ['255,255,255','196,181,253','167,139,250','147,197,253','252,211,77'];
+    this.color = palette[Math.floor(Math.random() * palette.length)];
+  };
+  Shooter.prototype.update = function(){
+    this.x += Math.cos(this.angle) * this.speed;
+    this.y += Math.sin(this.angle) * this.speed;
+    if(this.growing){ this.alpha = Math.min(1, this.alpha + this.fade * 2.2); }
+    else            { this.alpha -= this.fade; }
+    if(this.alpha >= 0.92) this.growing = false;
+    if(this.alpha <= 0 || this.y > H + 30 || this.x > W + 30) this.alive = false;
+  };
+  Shooter.prototype.draw = function(){
+    var tx = this.x - Math.cos(this.angle) * this.len;
+    var ty = this.y - Math.sin(this.angle) * this.len;
+    var g = ctx.createLinearGradient(tx, ty, this.x, this.y);
+    g.addColorStop(0, 'rgba(' + this.color + ',0)');
+    g.addColorStop(1, 'rgba(' + this.color + ',' + this.alpha + ')');
+    ctx.save();
+    ctx.strokeStyle = g;
+    ctx.lineWidth   = 0.8 + Math.random() * 0.6;
+    ctx.beginPath(); ctx.moveTo(tx, ty); ctx.lineTo(this.x, this.y); ctx.stroke();
+    // đầu sáng
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, 1.2, 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(' + this.color + ',' + this.alpha + ')';
+    ctx.fill();
+    ctx.restore();
+  };
+
+  for(var i = 0; i < 4; i++) shooters.push(new Shooter());
+  var lastSpawn = 0;
+
+  function loop(now){
+    ctx.clearRect(0, 0, W, H);
+
+    // Vẽ sao tĩnh
+    for(var i = 0; i < staticStars.length; i++){
+      var s = staticStars[i];
+      s.a += s.da;
+      if(s.a > s.base + 0.42 || s.a < s.base - 0.1) s.da *= -1;
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(255,255,255,' + Math.max(0, Math.min(1, s.a)) + ')';
+      ctx.fill();
+    }
+
+    // Sinh sao băng mới
+    if(now - lastSpawn > 600 + Math.random() * 1800){
+      var dead = null;
+      for(var i = 0; i < shooters.length; i++){
+        if(!shooters[i].alive){ dead = shooters[i]; break; }
+      }
+      if(dead) dead.reset();
+      else shooters.push(new Shooter());
+      lastSpawn = now;
+    }
+
+    // Vẽ sao băng
+    for(var i = 0; i < shooters.length; i++){
+      if(shooters[i].alive){ shooters[i].update(); shooters[i].draw(); }
+    }
+
+    requestAnimationFrame(loop);
+  }
+  requestAnimationFrame(loop);
+})();
+
+// ─── KEY CLOSE ───
+document.addEventListener('keydown',e=>{ if(e.key==='Escape'){ closeModal(); closeLightbox(); } });
+</script>
+</body>
+</html>

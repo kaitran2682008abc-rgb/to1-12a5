@@ -1,0 +1,1073 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kỷ Yếu Tổ 1 · Lớp 12A5</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Lora:ital,wght@0,400;0,500;1,400&family=Great+Vibes&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --rose:    #e8a0b4;
+    --rose2:   #d4718f;
+    --blush:   #fce8ee;
+    --petal:   #fff0f5;
+    --mauve:   #9b5e72;
+    --soft:    #f7d6e0;
+    --cream:   #fffaf8;
+    --ink:     #3d1f2a;
+    --muted:   #9a7080;
+    --white:   #ffffff;
+  }
+
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    font-family: 'Lora', serif;
+    color: var(--ink);
+    overflow-x: hidden;
+  }
+
+  /* ── PETALS BACKGROUND ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      radial-gradient(circle at 15% 20%, rgba(232,160,180,.18) 0%, transparent 40%),
+      radial-gradient(circle at 85% 10%, rgba(212,113,143,.12) 0%, transparent 35%),
+      radial-gradient(circle at 70% 80%, rgba(232,160,180,.15) 0%, transparent 40%),
+      radial-gradient(circle at 10% 85%, rgba(212,113,143,.10) 0%, transparent 35%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── FLOATING PETALS ── */
+  .petal-wrap {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .petal {
+    position: absolute;
+    top: -40px;
+    width: 14px; height: 18px;
+    background: radial-gradient(ellipse at 40% 30%, #f9c8d8, #e8a0b4 60%, #d4718f);
+    border-radius: 0 60% 0 60%;
+    opacity: 0;
+    animation: fall linear infinite;
+  }
+
+  @keyframes fall {
+    0%   { transform: translateY(0) rotate(0deg) scale(1); opacity: 0; }
+    10%  { opacity: .7; }
+    90%  { opacity: .4; }
+    100% { transform: translateY(110vh) rotate(360deg) scale(.6); opacity: 0; }
+  }
+
+  /* ── HERO ── */
+  #hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 80px 24px 60px;
+    overflow: hidden;
+  }
+
+  .hero-ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgba(232,160,180,.4);
+    animation: pulse-ring 5s ease-in-out infinite;
+  }
+  .hero-ring:nth-child(1){ width:500px;height:500px; animation-delay:0s; }
+  .hero-ring:nth-child(2){ width:700px;height:700px; border-color:rgba(232,160,180,.2); animation-delay:1.5s; }
+  .hero-ring:nth-child(3){ width:320px;height:320px; border-color:rgba(212,113,143,.5); animation-delay:.8s; }
+
+  @keyframes pulse-ring {
+    0%,100% { transform:translate(-50%,-50%) scale(1); opacity:.6; }
+    50%      { transform:translate(-50%,-50%) scale(1.04); opacity:1; }
+  }
+  .hero-ring { top:50%; left:50%; transform:translate(-50%,-50%); }
+
+  .hero-badge {
+    position: relative;
+    z-index: 2;
+    background: linear-gradient(135deg, var(--rose2), var(--rose));
+    color: #fff;
+    font-family: 'Lora', serif;
+    font-size: .65rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    padding: 6px 22px;
+    border-radius: 30px;
+    margin-bottom: 28px;
+    opacity: 0;
+    animation: fadeUp .8s .2s forwards;
+  }
+
+  .hero-script {
+    position: relative;
+    z-index: 2;
+    font-family: 'Great Vibes', cursive;
+    font-size: clamp(3.5rem, 10vw, 7rem);
+    color: var(--rose2);
+    line-height: 1;
+    margin-bottom: 10px;
+    opacity: 0;
+    animation: fadeUp .9s .4s forwards;
+    text-shadow: 0 2px 20px rgba(212,113,143,.3);
+  }
+
+  .hero-title {
+    position: relative;
+    z-index: 2;
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.6rem, 4vw, 2.8rem);
+    color: var(--ink);
+    letter-spacing: 2px;
+    opacity: 0;
+    animation: fadeUp .9s .6s forwards;
+    margin-bottom: 8px;
+  }
+
+  .hero-year {
+    position: relative;
+    z-index: 2;
+    font-size: .85rem;
+    letter-spacing: 5px;
+    color: var(--muted);
+    text-transform: uppercase;
+    opacity: 0;
+    animation: fadeUp .9s .8s forwards;
+    margin-bottom: 36px;
+  }
+
+  .hero-divider {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 28px;
+    opacity: 0;
+    animation: fadeUp .8s 1s forwards;
+  }
+
+  .hero-divider::before,
+  .hero-divider::after {
+    content: '';
+    width: 70px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--rose));
+  }
+  .hero-divider::after { background: linear-gradient(90deg, var(--rose), transparent); }
+  .hero-flower { font-size: 1.2rem; }
+
+  .hero-quote {
+    position: relative;
+    z-index: 2;
+    max-width: 500px;
+    font-style: italic;
+    font-size: 1rem;
+    color: var(--muted);
+    line-height: 1.9;
+    opacity: 0;
+    animation: fadeUp .8s 1.2s forwards;
+  }
+
+  @keyframes fadeUp {
+    from { opacity:0; transform:translateY(24px); }
+    to   { opacity:1; transform:translateY(0); }
+  }
+
+  /* ── SECTION WRAPPER ── */
+  .section {
+    position: relative;
+    z-index: 1;
+    padding: 80px 24px;
+  }
+
+  .section-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .sec-label {
+    text-align: center;
+    font-size: .65rem;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--rose2);
+    margin-bottom: 10px;
+    font-family: 'Lora', serif;
+  }
+
+  .sec-title {
+    text-align: center;
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    color: var(--ink);
+    margin-bottom: 8px;
+  }
+
+  .sec-sub {
+    text-align: center;
+    color: var(--muted);
+    font-style: italic;
+    font-size: .95rem;
+    margin-bottom: 56px;
+  }
+
+  .sec-ornament {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 56px;
+  }
+
+  .sec-ornament::before,
+  .sec-ornament::after {
+    content: '';
+    flex: 1;
+    max-width: 120px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--rose));
+  }
+  .sec-ornament::after { background: linear-gradient(90deg, var(--rose), transparent); }
+
+  /* ── WAVE DIVIDER ── */
+  .wave {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    line-height: 0;
+  }
+  .wave svg { display: block; width: 100%; }
+
+  /* ── LEADER SECTION ── */
+  #sec-leader {
+    background: linear-gradient(160deg, #fff5f8 0%, var(--blush) 100%);
+  }
+
+  .leader-card {
+    max-width: 420px;
+    margin: 0 auto;
+    text-align: center;
+    background: var(--white);
+    border-radius: 24px;
+    padding: 48px 40px 40px;
+    box-shadow: 0 8px 40px rgba(212,113,143,.15), 0 2px 8px rgba(212,113,143,.08);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .leader-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--rose), var(--rose2), var(--rose));
+  }
+
+  .leader-card::after {
+    content: '❀';
+    position: absolute;
+    bottom: -20px; right: -10px;
+    font-size: 8rem;
+    opacity: .04;
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  .leader-crown {
+    position: absolute;
+    top: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, var(--rose2), var(--rose));
+    color: #fff;
+    font-size: .6rem;
+    letter-spacing: 3px;
+    padding: 5px 20px;
+    border-radius: 20px;
+    font-family: 'Lora', serif;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .leader-photo-wrap {
+    position: relative;
+    display: inline-block;
+    margin: 12px 0 24px;
+    cursor: pointer;
+  }
+
+  .leader-photo-frame {
+    width: 160px; height: 160px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--soft), var(--blush));
+    border: 4px solid var(--rose);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .leader-photo-frame img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+
+  .photo-hover {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: rgba(212,113,143,.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: .72rem;
+    letter-spacing: 1px;
+    opacity: 0;
+    transition: opacity .2s;
+    font-family: 'Lora', serif;
+  }
+
+  .leader-photo-wrap:hover .photo-hover { opacity: 1; }
+
+  .leader-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+
+  .leader-role {
+    font-family: 'Great Vibes', cursive;
+    font-size: 1.3rem;
+    color: var(--rose2);
+    margin-bottom: 20px;
+  }
+
+  .leader-quote {
+    font-style: italic;
+    color: var(--muted);
+    font-size: .92rem;
+    line-height: 1.8;
+    background: var(--petal);
+    border-radius: 12px;
+    padding: 14px 18px;
+    border-left: 3px solid var(--rose);
+  }
+
+  /* ── MEMBERS ── */
+  #sec-members {
+    background: var(--cream);
+  }
+
+  .members-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 28px;
+  }
+
+  .member-card {
+    background: var(--white);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 4px 24px rgba(212,113,143,.1);
+    transition: transform .3s ease, box-shadow .3s ease;
+    position: relative;
+  }
+
+  .member-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 16px 40px rgba(212,113,143,.22);
+  }
+
+  .member-photo-area {
+    height: 200px;
+    background: linear-gradient(135deg, var(--soft) 0%, var(--blush) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    font-size: 3rem;
+  }
+
+  .member-photo-area img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    position: absolute;
+    inset: 0;
+  }
+
+  .member-photo-area .photo-hover {
+    border-radius: 0;
+  }
+
+  .member-photo-area:hover .photo-hover { opacity: 1; }
+
+  .member-num-badge {
+    position: absolute;
+    top: 12px; left: 12px;
+    background: rgba(255,255,255,.9);
+    color: var(--rose2);
+    font-size: .6rem;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 20px;
+    letter-spacing: 1px;
+    font-family: 'Lora', serif;
+    backdrop-filter: blur(4px);
+  }
+
+  .member-body {
+    padding: 20px 22px 22px;
+  }
+
+  .member-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    color: var(--ink);
+    margin-bottom: 2px;
+  }
+
+  .member-nick {
+    font-family: 'Great Vibes', cursive;
+    font-size: 1.1rem;
+    color: var(--rose2);
+    margin-bottom: 10px;
+  }
+
+  .member-hobby {
+    font-size: .78rem;
+    color: var(--muted);
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+    margin-bottom: 10px;
+    line-height: 1.5;
+  }
+
+  .member-quote {
+    font-style: italic;
+    font-size: .82rem;
+    color: var(--muted);
+    line-height: 1.7;
+    border-top: 1px solid var(--soft);
+    padding-top: 10px;
+  }
+
+  /* ── MEMORIES ── */
+  #sec-memories {
+    background: linear-gradient(160deg, #fff5f8 0%, var(--blush) 100%);
+  }
+
+  .memories-placeholder {
+    border: 2px dashed var(--rose);
+    border-radius: 20px;
+    padding: 60px 40px;
+    text-align: center;
+    color: var(--muted);
+    background: rgba(255,255,255,.5);
+  }
+
+  .memories-placeholder .icon { font-size: 3rem; margin-bottom: 12px; }
+  .memories-placeholder p { font-style: italic; font-size: .95rem; }
+
+  /* ── FOOTER ── */
+  footer {
+    position: relative;
+    z-index: 1;
+    background: linear-gradient(160deg, var(--rose2) 0%, var(--mauve) 100%);
+    color: #fff;
+    text-align: center;
+    padding: 60px 24px 40px;
+    overflow: hidden;
+  }
+
+  footer::before {
+    content: '❀';
+    position: absolute;
+    font-size: 16rem;
+    opacity: .05;
+    top: -40px; right: -40px;
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  .footer-script {
+    font-family: 'Great Vibes', cursive;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    margin-bottom: 8px;
+    text-shadow: 0 2px 12px rgba(0,0,0,.15);
+  }
+
+  .footer-sub {
+    font-size: .8rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    opacity: .75;
+    margin-bottom: 24px;
+  }
+
+  .footer-hearts {
+    font-size: 1.2rem;
+    letter-spacing: 8px;
+    opacity: .6;
+  }
+
+  /* ── TOOLBAR ── */
+  #toolbar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 9999;
+    background: rgba(255,255,255,.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--soft);
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    box-shadow: 0 2px 20px rgba(212,113,143,.12);
+  }
+
+  .tb-logo {
+    font-family: 'Great Vibes', cursive;
+    font-size: 1.3rem;
+    color: var(--rose2);
+    margin-right: 6px;
+  }
+
+  #toolbar button {
+    border: 1.5px solid var(--rose);
+    background: transparent;
+    color: var(--rose2);
+    padding: 5px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: .75rem;
+    font-family: 'Lora', serif;
+    transition: all .2s;
+  }
+
+  #toolbar button:hover, #toolbar button.active {
+    background: var(--rose2);
+    color: #fff;
+    border-color: var(--rose2);
+  }
+
+  #toolbar .tb-export {
+    background: linear-gradient(135deg, var(--rose2), var(--rose));
+    color: #fff;
+    border: none;
+    font-weight: 600;
+  }
+
+  #toolbar .tb-export:hover {
+    background: linear-gradient(135deg, var(--mauve), var(--rose2));
+  }
+
+  #tb-hint {
+    margin-left: auto;
+    font-size: .7rem;
+    color: var(--muted);
+    font-style: italic;
+  }
+
+  /* ── EDIT MODE ── */
+  body.edit-mode [contenteditable="true"] {
+    outline: 1.5px dashed rgba(212,113,143,.6);
+    border-radius: 4px;
+    cursor: text;
+    background: rgba(252,232,238,.3);
+    min-width: 30px;
+    display: inline-block;
+  }
+
+  body.edit-mode [contenteditable="true"]:focus {
+    outline: 2px solid var(--rose2);
+    background: rgba(252,232,238,.6);
+  }
+
+  [contenteditable] { outline: none; }
+
+  /* ── TOAST ── */
+  #toast {
+    position: fixed;
+    bottom: 28px; left: 50%;
+    transform: translateX(-50%) translateY(80px);
+    background: linear-gradient(135deg, var(--rose2), var(--rose));
+    color: #fff;
+    padding: 10px 28px;
+    border-radius: 30px;
+    font-size: .82rem;
+    font-family: 'Lora', serif;
+    z-index: 99999;
+    transition: transform .4s cubic-bezier(.34,1.56,.64,1);
+    pointer-events: none;
+    box-shadow: 0 4px 20px rgba(212,113,143,.4);
+  }
+  #toast.show { transform: translateX(-50%) translateY(0); }
+
+  /* ── REVEAL ── */
+  .reveal { opacity:0; transform:translateY(32px); transition: opacity .7s, transform .7s; }
+  .reveal.visible { opacity:1; transform:none; }
+
+  /* FILE INPUT */
+  #file-input { display:none; }
+</style>
+</head>
+<body>
+
+<!-- FLOATING PETALS -->
+<div class="petal-wrap" id="petalWrap"></div>
+
+<!-- TOOLBAR -->
+<div id="toolbar">
+  <span class="tb-logo">Kỷ Yếu</span>
+  <button id="btn-edit" onclick="toggleEdit()">✏️ Chỉnh sửa</button>
+  <button onclick="showHelp()">❓ Hướng dẫn</button>
+  <button class="tb-export" onclick="exportFile()">⬇️ Xuất file HTML</button>
+  <span id="tb-hint">Nhấn "Chỉnh sửa" để sửa nội dung & thay ảnh</span>
+</div>
+
+<input type="file" id="file-input" accept="image/*">
+
+<!-- HERO -->
+<section id="hero" style="padding-top:70px;">
+  <div class="hero-ring"></div>
+  <div class="hero-ring"></div>
+  <div class="hero-ring"></div>
+
+  <div class="hero-badge">✿ Kỷ Yếu Cuối Cấp ✿</div>
+  <div class="hero-script" contenteditable="false">Tổ 1 · 12A5</div>
+  <h1 class="hero-title" contenteditable="false">Lớp 12A5 – Năm Học 2024–2025</h1>
+  <p class="hero-year" contenteditable="false">Trường THPT ✦ Tổ 1 · 9 Thành Viên</p>
+  <div class="hero-divider"><span class="hero-flower">✿</span></div>
+  <p class="hero-quote" contenteditable="false">
+    Những tháng ngày bên nhau sẽ mãi là ký ức đẹp nhất của tuổi học trò —<br>
+    Tổ 1, mãi trong tim nhau.
+  </p>
+</section>
+
+<!-- WAVE DOWN -->
+<div class="wave">
+  <svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path fill="#fff5f8" d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z"/>
+  </svg>
+</div>
+
+<!-- LEADER -->
+<section id="sec-leader" class="section">
+  <div class="section-inner">
+    <p class="sec-label reveal">✿ Người Dẫn Dắt ✿</p>
+    <h2 class="sec-title reveal">Tổ Trưởng</h2>
+    <p class="sec-sub reveal" contenteditable="false">Người luôn đồng hành và dẫn dắt tổ 1 suốt những năm tháng đáng nhớ</p>
+    <div class="sec-ornament reveal"><span>❀</span></div>
+
+    <div class="leader-card reveal">
+      <div class="leader-crown">✦ Tổ Trưởng ✦</div>
+      <div class="leader-photo-wrap" onclick="pickImg('leader', -1)">
+        <div class="leader-photo-frame" id="leader-frame">
+          <span id="leader-ph">🌸</span>
+          <img id="leader-img" src="" alt="" style="display:none">
+        </div>
+        <div class="photo-hover">Đổi ảnh</div>
+      </div>
+      <div class="leader-name" contenteditable="false" id="l-name">Nguyễn Văn An</div>
+      <div class="leader-role" contenteditable="false" id="l-role">Tổ Trưởng Tổ 1</div>
+      <div class="leader-quote" contenteditable="false" id="l-quote">
+        "Cảm ơn các bạn đã tin tưởng và đồng hành. Tổ mình mãi là gia đình nhỏ trong tim tớ."
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WAVE -->
+<div class="wave" style="background:#fff5f8;">
+  <svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path fill="#fffaf8" d="M0,30 C360,0 1080,60 1440,30 L1440,60 L0,60 Z"/>
+  </svg>
+</div>
+
+<!-- MEMBERS -->
+<section id="sec-members" class="section">
+  <div class="section-inner">
+    <p class="sec-label reveal">✿ 8 Mảnh Ghép ✿</p>
+    <h2 class="sec-title reveal">Thành Viên</h2>
+    <p class="sec-sub reveal" contenteditable="false">Mỗi người một cá tính, cùng nhau tạo nên một tổ hoàn hảo</p>
+    <div class="sec-ornament reveal"><span>❀</span></div>
+    <div class="members-grid" id="members-grid"></div>
+  </div>
+</section>
+
+<!-- WAVE -->
+<div class="wave" style="background:#fffaf8;">
+  <svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path fill="#fff5f8" d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z"/>
+  </svg>
+</div>
+
+<!-- MEMORIES -->
+<section id="sec-memories" class="section">
+  <div class="section-inner">
+    <p class="sec-label reveal">✿ Kỷ Niệm ✿</p>
+    <h2 class="sec-title reveal">Ảnh Kỷ Niệm</h2>
+    <p class="sec-sub reveal" contenteditable="false">Những khoảnh khắc đáng nhớ của Tổ 1</p>
+    <div class="sec-ornament reveal"><span>❀</span></div>
+    <div class="memories-placeholder reveal">
+      <div class="icon">📷</div>
+      <p contenteditable="false">Chèn ảnh kỷ niệm của tổ vào đây<br><small>( Bật chỉnh sửa → click để thêm ảnh )</small></p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-script" contenteditable="false">Mãi nhớ nhau nhé, Tổ 1 ơi!</div>
+  <p class="footer-sub" contenteditable="false">Tổ 1 · Lớp 12A5 · 2024–2025</p>
+  <div class="footer-hearts">❀ ❀ ❀</div>
+</footer>
+
+<div id="toast"></div>
+
+<script>
+// ─── DATA ───
+const members = [
+  { name:"Nguyễn Thị Bảo Châu", nick:"Bé Châu",   hobby:"Đọc sách, nghe nhạc acoustic",      quote:"Học đi đôi với hành, bạn bè đi đôi với kỷ niệm." },
+  { name:"Trần Minh Cường",      nick:"Cún Cường",  hobby:"Chơi cầu lông, xem phim hoạt hình", quote:"Cảm ơn tổ mình vì những buổi học nhóm hết mình." },
+  { name:"Lê Thị Kim Dung",      nick:"Dâu Dung",   hobby:"Nấu ăn, chụp ảnh",                  quote:"Tuổi 18 đẹp nhất khi có các bạn bên cạnh." },
+  { name:"Phạm Hoàng Gia Bảo",   nick:"Gấu Bảo",   hobby:"Đá bóng, nghe nhạc rap",            quote:"Mỗi bài kiểm tra là một trận chiến — và chúng ta luôn cùng nhau." },
+  { name:"Hoàng Thị Phương Linh",nick:"Linh béo",   hobby:"Vẽ tranh, xem phim Hàn",            quote:"Những bữa trưa cùng nhau sẽ mãi là ký ức quý giá." },
+  { name:"Vũ Đình Quang",        nick:"Gà Quang",   hobby:"Chơi game, lập trình",              quote:"Tổ 1 không chỉ là nhóm học — đó là gia đình." },
+  { name:"Đặng Thị Thu Hà",      nick:"Hà xinh",    hobby:"Múa, karaoke",                      quote:"Cảm ơn tổ trưởng đã luôn quan tâm và nhắc nhở chúng mình." },
+  { name:"Bùi Tiến Đạt",         nick:"Đạt lùn",    hobby:"Đọc truyện tranh, chơi cờ vua",    quote:"Chúc tổ mình ai cũng thành công trên con đường phía trước." },
+];
+
+const memberImgs = {};
+let editMode = false;
+let pickTarget = null;
+
+// ─── RENDER MEMBERS ───
+function renderMembers() {
+  const grid = document.getElementById('members-grid');
+  grid.innerHTML = '';
+  members.forEach((m, i) => {
+    const card = document.createElement('div');
+    card.className = 'member-card reveal';
+    const hasImg = memberImgs[i];
+    card.innerHTML = `
+      <div class="member-photo-area" onclick="pickImg('member',${i})">
+        ${hasImg ? `<img src="${hasImg}" alt="${m.name}">` : `<span>🌸</span>`}
+        <div class="member-num-badge">Thành viên ${String(i+1).padStart(2,'0')}</div>
+        <div class="photo-hover">Đổi ảnh</div>
+      </div>
+      <div class="member-body">
+        <div class="member-name" contenteditable="false" data-i="${i}" data-f="name">${m.name}</div>
+        <div class="member-nick" contenteditable="false" data-i="${i}" data-f="nick">${m.nick}</div>
+        <div class="member-hobby">🌷 <span contenteditable="false" data-i="${i}" data-f="hobby">${m.hobby}</span></div>
+        <div class="member-quote" contenteditable="false" data-i="${i}" data-f="quote">"${m.quote}"</div>
+      </div>`;
+    grid.appendChild(card);
+  });
+  observeReveal();
+  if (editMode) enableEdit();
+}
+
+// ─── EDIT MODE ───
+function toggleEdit() {
+  editMode = !editMode;
+  const btn = document.getElementById('btn-edit');
+  const hint = document.getElementById('tb-hint');
+  document.body.classList.toggle('edit-mode', editMode);
+  if (editMode) {
+    btn.textContent = '✅ Đang sửa — Nhấn để lưu';
+    btn.classList.add('active');
+    hint.textContent = 'Click vào chữ để sửa · Click vào ảnh 🌸 để thay';
+    enableEdit();
+  } else {
+    btn.textContent = '✏️ Chỉnh sửa';
+    btn.classList.remove('active');
+    hint.textContent = 'Nhấn "Chỉnh sửa" để sửa nội dung & thay ảnh';
+    disableEdit();
+    saveFields();
+    toast('✿ Đã lưu thay đổi!');
+  }
+}
+
+function enableEdit() {
+  document.querySelectorAll('[contenteditable]').forEach(el => {
+    el.setAttribute('contenteditable', 'true');
+    el.addEventListener('blur', onBlur);
+  });
+}
+function disableEdit() {
+  document.querySelectorAll('[contenteditable]').forEach(el => el.setAttribute('contenteditable','false'));
+}
+function onBlur(e) {
+  const el = e.target;
+  const i = el.dataset.i, f = el.dataset.f;
+  if (i !== undefined && f) members[i][f] = el.textContent.replace(/^"|"$/g,'').trim();
+}
+function saveFields() {
+  document.querySelectorAll('[data-i][data-f]').forEach(el => {
+    const i = el.dataset.i, f = el.dataset.f;
+    members[i][f] = el.textContent.replace(/^"|"$/g,'').trim();
+  });
+}
+
+// ─── IMAGE PICKER ───
+function pickImg(type, idx) {
+  if (!editMode) return;
+  pickTarget = { type, idx };
+  const fi = document.getElementById('file-input');
+  fi.value = '';
+  fi.click();
+}
+
+document.getElementById('file-input').addEventListener('change', function() {
+  const file = this.files[0];
+  if (!file || !pickTarget) return;
+  const reader = new FileReader();
+  reader.onload = ev => {
+    const src = ev.target.result;
+    if (pickTarget.type === 'leader') {
+      document.getElementById('leader-ph').style.display = 'none';
+      const img = document.getElementById('leader-img');
+      img.src = src; img.style.display = 'block';
+    } else {
+      memberImgs[pickTarget.idx] = src;
+      renderMembers();
+    }
+    toast('✿ Đã cập nhật ảnh!');
+  };
+  reader.readAsDataURL(file);
+});
+
+// ─── EXPORT ───
+function exportFile() {
+  saveFields();
+  const leaderName  = document.getElementById('l-name').textContent;
+  const leaderRole  = document.getElementById('l-role').textContent;
+  const leaderQuote = document.getElementById('l-quote').textContent;
+  const leaderSrc   = document.getElementById('leader-img').src;
+  const leaderHasImg= document.getElementById('leader-img').style.display !== 'none';
+
+  const heroScript = document.querySelector('.hero-script').innerHTML;
+  const heroTitle  = document.querySelector('.hero-title').innerHTML;
+  const heroYear   = document.querySelector('.hero-year').innerHTML;
+  const heroQuote  = document.querySelector('.hero-quote').innerHTML;
+  const secSub1    = document.querySelector('#sec-leader .sec-sub').innerHTML;
+  const secSub2    = document.querySelector('#sec-members .sec-sub').innerHTML;
+  const ftScript   = document.querySelector('.footer-script').innerHTML;
+  const ftSub      = document.querySelector('.footer-sub').innerHTML;
+
+  const mHTML = members.map((m,i) => `
+    <div class="member-card">
+      <div class="member-photo-area">
+        ${memberImgs[i] ? `<img src="${memberImgs[i]}" alt="${m.name}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">` : `<span>🌸</span>`}
+        <div class="member-num-badge">Thành viên ${String(i+1).padStart(2,'0')}</div>
+      </div>
+      <div class="member-body">
+        <div class="member-name">${m.name}</div>
+        <div class="member-nick">${m.nick}</div>
+        <div class="member-hobby">🌷 ${m.hobby}</div>
+        <div class="member-quote">"${m.quote}"</div>
+      </div>
+    </div>`).join('');
+
+  const lPhoto = leaderHasImg && leaderSrc
+    ? `<img src="${leaderSrc}" alt="Tổ trưởng" style="width:100%;height:100%;object-fit:cover;border-radius:50%">`
+    : `<span>🌸</span>`;
+
+  const html = `<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kỷ Yếu Tổ 1 · Lớp 12A5</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lora:ital,wght@0,400;0,500;1,400&family=Great+Vibes&display=swap" rel="stylesheet">
+<style>
+:root{--rose:#e8a0b4;--rose2:#d4718f;--blush:#fce8ee;--petal:#fff0f5;--mauve:#9b5e72;--soft:#f7d6e0;--cream:#fffaf8;--ink:#3d1f2a;--muted:#9a7080;--white:#ffffff}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--cream);font-family:'Lora',serif;color:var(--ink);overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(circle at 15% 20%,rgba(232,160,180,.18) 0%,transparent 40%),radial-gradient(circle at 85% 10%,rgba(212,113,143,.12) 0%,transparent 35%),radial-gradient(circle at 70% 80%,rgba(232,160,180,.15) 0%,transparent 40%);pointer-events:none;z-index:0}
+#hero{position:relative;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:60px 24px;overflow:hidden}
+.hero-ring{position:absolute;border-radius:50%;top:50%;left:50%;transform:translate(-50%,-50%)}
+.hero-ring:nth-child(1){width:500px;height:500px;border:1px solid rgba(232,160,180,.4)}
+.hero-ring:nth-child(2){width:700px;height:700px;border:1px solid rgba(232,160,180,.2)}
+.hero-ring:nth-child(3){width:320px;height:320px;border:1px solid rgba(212,113,143,.5)}
+.hero-badge{position:relative;z-index:2;background:linear-gradient(135deg,var(--rose2),var(--rose));color:#fff;font-size:.65rem;letter-spacing:4px;text-transform:uppercase;padding:6px 22px;border-radius:30px;margin-bottom:28px}
+.hero-script{position:relative;z-index:2;font-family:'Great Vibes',cursive;font-size:clamp(3.5rem,10vw,7rem);color:var(--rose2);line-height:1;margin-bottom:10px;text-shadow:0 2px 20px rgba(212,113,143,.3)}
+.hero-title{position:relative;z-index:2;font-family:'Playfair Display',serif;font-size:clamp(1.6rem,4vw,2.8rem);color:var(--ink);letter-spacing:2px;margin-bottom:8px}
+.hero-year{position:relative;z-index:2;font-size:.85rem;letter-spacing:5px;color:var(--muted);text-transform:uppercase;margin-bottom:36px}
+.hero-divider{position:relative;z-index:2;display:flex;align-items:center;gap:14px;margin-bottom:28px}
+.hero-divider::before,.hero-divider::after{content:'';width:70px;height:1px;background:linear-gradient(90deg,transparent,var(--rose))}
+.hero-divider::after{background:linear-gradient(90deg,var(--rose),transparent)}
+.hero-flower{font-size:1.2rem}
+.hero-quote{position:relative;z-index:2;max-width:500px;font-style:italic;font-size:1rem;color:var(--muted);line-height:1.9}
+.wave{position:relative;z-index:1;width:100%;line-height:0}
+.wave svg{display:block;width:100%}
+.section{position:relative;z-index:1;padding:80px 24px}
+.section-inner{max-width:1100px;margin:0 auto}
+.sec-label{text-align:center;font-size:.65rem;letter-spacing:5px;text-transform:uppercase;color:var(--rose2);margin-bottom:10px}
+.sec-title{text-align:center;font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4vw,2.8rem);color:var(--ink);margin-bottom:8px}
+.sec-sub{text-align:center;color:var(--muted);font-style:italic;font-size:.95rem;margin-bottom:40px}
+.sec-ornament{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:48px}
+.sec-ornament::before,.sec-ornament::after{content:'';flex:1;max-width:120px;height:1px;background:linear-gradient(90deg,transparent,var(--rose))}
+.sec-ornament::after{background:linear-gradient(90deg,var(--rose),transparent)}
+#sec-leader{background:linear-gradient(160deg,#fff5f8 0%,var(--blush) 100%)}
+.leader-card{max-width:420px;margin:0 auto;text-align:center;background:var(--white);border-radius:24px;padding:48px 40px 40px;box-shadow:0 8px 40px rgba(212,113,143,.15);position:relative;overflow:hidden}
+.leader-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--rose),var(--rose2),var(--rose))}
+.leader-crown{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,var(--rose2),var(--rose));color:#fff;font-size:.6rem;letter-spacing:3px;padding:5px 20px;border-radius:20px;text-transform:uppercase;white-space:nowrap}
+.leader-photo-frame{width:160px;height:160px;border-radius:50%;background:linear-gradient(135deg,var(--soft),var(--blush));border:4px solid var(--rose);display:flex;align-items:center;justify-content:center;font-size:2.5rem;overflow:hidden;margin:12px auto 24px}
+.leader-name{font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--ink);margin-bottom:4px}
+.leader-role{font-family:'Great Vibes',cursive;font-size:1.3rem;color:var(--rose2);margin-bottom:20px}
+.leader-quote{font-style:italic;color:var(--muted);font-size:.92rem;line-height:1.8;background:var(--petal);border-radius:12px;padding:14px 18px;border-left:3px solid var(--rose)}
+#sec-members{background:var(--cream)}
+.members-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:28px}
+.member-card{background:var(--white);border-radius:20px;overflow:hidden;box-shadow:0 4px 24px rgba(212,113,143,.1);position:relative}
+.member-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--rose),var(--rose2))}
+.member-photo-area{height:200px;background:linear-gradient(135deg,var(--soft) 0%,var(--blush) 100%);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;font-size:3rem}
+.member-photo-area img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.member-num-badge{position:absolute;top:12px;left:12px;background:rgba(255,255,255,.9);color:var(--rose2);font-size:.6rem;padding:3px 10px;border-radius:20px;letter-spacing:1px}
+.member-body{padding:20px 22px 22px}
+.member-name{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--ink);margin-bottom:2px}
+.member-nick{font-family:'Great Vibes',cursive;font-size:1.1rem;color:var(--rose2);margin-bottom:10px}
+.member-hobby{font-size:.78rem;color:var(--muted);margin-bottom:10px;line-height:1.5}
+.member-quote{font-style:italic;font-size:.82rem;color:var(--muted);line-height:1.7;border-top:1px solid var(--soft);padding-top:10px}
+#sec-memories{background:linear-gradient(160deg,#fff5f8 0%,var(--blush) 100%)}
+.memories-placeholder{border:2px dashed var(--rose);border-radius:20px;padding:60px 40px;text-align:center;color:var(--muted);background:rgba(255,255,255,.5)}
+footer{position:relative;z-index:1;background:linear-gradient(160deg,var(--rose2) 0%,var(--mauve) 100%);color:#fff;text-align:center;padding:60px 24px 40px;overflow:hidden}
+.footer-script{font-family:'Great Vibes',cursive;font-size:clamp(2rem,5vw,3.5rem);margin-bottom:8px}
+.footer-sub{font-size:.8rem;letter-spacing:3px;text-transform:uppercase;opacity:.75;margin-bottom:24px}
+.footer-hearts{font-size:1.2rem;letter-spacing:8px;opacity:.6}
+</style>
+</head>
+<body>
+<section id="hero">
+  <div class="hero-ring"></div><div class="hero-ring"></div><div class="hero-ring"></div>
+  <div class="hero-badge">✿ Kỷ Yếu Cuối Cấp ✿</div>
+  <div class="hero-script">${heroScript}</div>
+  <h1 class="hero-title">${heroTitle}</h1>
+  <p class="hero-year">${heroYear}</p>
+  <div class="hero-divider"><span class="hero-flower">✿</span></div>
+  <p class="hero-quote">${heroQuote}</p>
+</section>
+<div class="wave"><svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path fill="#fff5f8" d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z"/></svg></div>
+<section id="sec-leader" class="section">
+  <div class="section-inner">
+    <p class="sec-label">✿ Người Dẫn Dắt ✿</p>
+    <h2 class="sec-title">Tổ Trưởng</h2>
+    <p class="sec-sub">${secSub1}</p>
+    <div class="sec-ornament"><span>❀</span></div>
+    <div class="leader-card">
+      <div class="leader-crown">✦ Tổ Trưởng ✦</div>
+      <div class="leader-photo-frame">${lPhoto}</div>
+      <div class="leader-name">${leaderName}</div>
+      <div class="leader-role">${leaderRole}</div>
+      <div class="leader-quote">${leaderQuote}</div>
+    </div>
+  </div>
+</section>
+<div class="wave" style="background:#fff5f8;"><svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path fill="#fffaf8" d="M0,30 C360,0 1080,60 1440,30 L1440,60 L0,60 Z"/></svg></div>
+<section id="sec-members" class="section">
+  <div class="section-inner">
+    <p class="sec-label">✿ 8 Mảnh Ghép ✿</p>
+    <h2 class="sec-title">Thành Viên</h2>
+    <p class="sec-sub">${secSub2}</p>
+    <div class="sec-ornament"><span>❀</span></div>
+    <div class="members-grid">${mHTML}</div>
+  </div>
+</section>
+<div class="wave" style="background:#fffaf8;"><svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path fill="#fff5f8" d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z"/></svg></div>
+<section id="sec-memories" class="section">
+  <div class="section-inner">
+    <p class="sec-label">✿ Kỷ Niệm ✿</p>
+    <h2 class="sec-title">Ảnh Kỷ Niệm</h2>
+    <div class="sec-ornament"><span>❀</span></div>
+    <div class="memories-placeholder"><div style="font-size:3rem;margin-bottom:12px">📷</div><p>Thêm ảnh kỷ niệm của tổ vào đây</p></div>
+  </div>
+</section>
+<footer>
+  <div class="footer-script">${ftScript}</div>
+  <p class="footer-sub">${ftSub}</p>
+  <div class="footer-hearts">❀ ❀ ❀</div>
+</footer>
+</body>
+</html>`;
+
+  const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'KyYeu-To1-12A5.html';
+  a.click();
+  toast('✿ Xuất file thành công!');
+}
+
+// ─── TOAST ───
+function toast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+// ─── HELP ───
+function showHelp() {
+  alert('HƯỚNG DẪN\n\n1. Nhấn "✏️ Chỉnh sửa" để bật chế độ sửa\n2. Click vào bất kỳ chữ nào để sửa trực tiếp\n3. Click vào ảnh 🌸 để tải ảnh thật lên\n4. Nhấn "✅ Đang sửa" để lưu lại\n5. Nhấn "⬇️ Xuất file HTML" để tải về\n\nFile xuất ra giữ nguyên tất cả nội dung & ảnh!');
+}
+
+// ─── PETALS ───
+(function spawnPetals() {
+  const wrap = document.getElementById('petalWrap');
+  for (let i = 0; i < 18; i++) {
+    const p = document.createElement('div');
+    p.className = 'petal';
+    p.style.cssText = `
+      left:${Math.random()*100}%;
+      width:${8+Math.random()*12}px;
+      height:${10+Math.random()*14}px;
+      animation-duration:${6+Math.random()*10}s;
+      animation-delay:${Math.random()*12}s;
+      opacity:0;
+    `;
+    wrap.appendChild(p);
+  }
+})();
+
+// ─── SCROLL REVEAL ───
+function observeReveal() {
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+}
+
+// ─── INIT ───
+renderMembers();
+observeReveal();
+</script>
+</body>
+</html>
